@@ -1,0 +1,67 @@
+class Question3 {
+    private int[] queue;
+    private int front;
+    private int rear;
+    private int size;
+    private int capacity;
+
+    public Question3(int k) {
+        queue = new int[k];
+        front = 0;
+        rear = 0;
+        size = 0;
+        capacity = k;
+    }
+
+    public boolean enqueue(int value) {
+        if (isFull()) {
+            return false;
+        }
+        queue[rear] = value;
+        rear = (rear + 1) % capacity;
+        size++;
+        return true;
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        int value = queue[front];
+        front = (front + 1) % capacity;
+        size--;
+        return value;
+    }
+
+    public int front() {
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        return queue[front];
+    }
+
+    public int rear() {
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        int rearIndex = (rear - 1 + capacity) % capacity;
+        return queue[rearIndex];
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == capacity;
+    }
+}
+
+Question3 q = new Question3(3);
+q.enqueue(1);
+q.enqueue(2);
+q.enqueue(3);
+System.out.println(q.dequeue());
+        q.enqueue(4);
+System.out.println(q.front());
+        System.out.println(q.rear());
